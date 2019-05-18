@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/czfshine/Jerrymouse.svg?branch=master)](https://travis-ci.com/czfshine/Jerrymouse)
 # Jerrymouse
 一个web容器服务.类似于Tomcat 9，
 预计实现
