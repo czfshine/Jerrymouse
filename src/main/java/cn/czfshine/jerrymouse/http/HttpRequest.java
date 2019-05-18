@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * 实现规范的http request，未完成，
  */
-@Deprecated
+
 public class HttpRequest implements HttpServletRequest {
 
 

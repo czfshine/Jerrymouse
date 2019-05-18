@@ -24,3 +24,5 @@ gradle/
 .idea/
 gradlew
 gradlew.bat
+
+out/

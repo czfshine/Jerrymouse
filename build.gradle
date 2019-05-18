@@ -20,6 +20,12 @@ dependencies {
     compileOnly "org.projectlombok:lombok:1.14.4"
 }
 
+test {
+
+    useJUnit()
+    maxHeapSize = '1G'
+    
+}
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
