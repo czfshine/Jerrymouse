@@ -20,6 +20,90 @@ public class HttpRequest implements HttpServletRequest {
 
 
 
+    private String method;
+    public void setMethod(String method) {
+        this.method = method;
+    }
+    /**
+     * Returns the name of the HTTP method with which this
+     * request was made, for example, GET, POST, or PUT.
+     * Same as the value of the CGI variable REQUEST_METHOD.
+     *
+     * @return a <code>String</code>
+     * specifying the name
+     * of the method with which
+     * this request was made
+     */
+    @Override
+    public String getMethod() {
+        return method;
+    }
+
+    private String uri;
+    public void setURI(String uri) {
+        this.uri = uri;
+    }
+
+    /**
+     * Returns the part of this request's URL from the protocol
+     * name up to the query string in the first line of the HTTP request.
+     * The web container does not decode this String.
+     * For example:
+     *
+     * <table summary="Examples of Returned Values">
+     * <tr align=left><th>First line of HTTP request      </th>
+     * <th>     Returned Value</th>
+     * <tr><td>POST /some/path.html HTTP/1.1<td><td>/some/path.html
+     * <tr><td>GET http://foo.bar/a.html HTTP/1.0
+     * <td><td>/a.html
+     * <tr><td>HEAD /xyz?a=b HTTP/1.1<td><td>/xyz
+     * </table>
+     *
+     * <p>To reconstruct an URL with a scheme and host, use
+     * {@link HttpUtils#getRequestURL}.
+     *
+     * @return a <code>String</code> containing
+     * the part of the URL from the
+     * protocol name up to the query string
+     * @see HttpUtils#getRequestURL
+     */
+    @Override
+    public String getRequestURI() {
+        //todo 具体文档没看太明白..
+        return uri;
+    }
+
+    public void setContentLength(long contentLength) {
+        this.contentLength = contentLength;
+    }
+    private long contentLength=0;
+    /**
+     * Returns the length, in bytes, of the request body and made available by
+     * the input stream, or -1 if the length is not known ir is greater than
+     * Integer.MAX_VALUE. For HTTP servlets,
+     * same as the value of the CGI variable CONTENT_LENGTH.
+     *
+     * @return an integer containing the length of the request body or -1 if
+     * the length is not known or is greater than Integer.MAX_VALUE.
+     */
+    @Override
+    public int getContentLength() {
+        return (int) contentLength;
+    }
+
+    /**
+     * Returns the length, in bytes, of the request body and made available by
+     * the input stream, or -1 if the length is not known. For HTTP servlets,
+     * same as the value of the CGI variable CONTENT_LENGTH.
+     *
+     * @return a long containing the length of the request body or -1L if
+     * the length is not known
+     * @since Servlet 3.1
+     */
+    @Override
+    public long getContentLengthLong() {
+        return contentLength;
+    }
 
     /* ****** 下面是废弃和未完成的api*/
     /**
@@ -197,21 +281,7 @@ public class HttpRequest implements HttpServletRequest {
         return 0;
     }
 
-    /**
-     * Returns the name of the HTTP method with which this
-     * request was made, for example, GET, POST, or PUT.
-     * Same as the value of the CGI variable REQUEST_METHOD.
-     *
-     * @return a <code>String</code>
-     * specifying the name
-     * of the method with which
-     * this request was made
-     */
-    @Override
-    @Deprecated
-    public String getMethod() {
-        return null;
-    }
+
 
     /**
      * Returns any extra path information associated with
@@ -389,34 +459,7 @@ public class HttpRequest implements HttpServletRequest {
         return null;
     }
 
-    /**
-     * Returns the part of this request's URL from the protocol
-     * name up to the query string in the first line of the HTTP request.
-     * The web container does not decode this String.
-     * For example:
-     *
-     * <table summary="Examples of Returned Values">
-     * <tr align=left><th>First line of HTTP request      </th>
-     * <th>     Returned Value</th>
-     * <tr><td>POST /some/path.html HTTP/1.1<td><td>/some/path.html
-     * <tr><td>GET http://foo.bar/a.html HTTP/1.0
-     * <td><td>/a.html
-     * <tr><td>HEAD /xyz?a=b HTTP/1.1<td><td>/xyz
-     * </table>
-     *
-     * <p>To reconstruct an URL with a scheme and host, use
-     * {@link HttpUtils#getRequestURL}.
-     *
-     * @return a <code>String</code> containing
-     * the part of the URL from the
-     * protocol name up to the query string
-     * @see HttpUtils#getRequestURL
-     */
-    @Override
-    @Deprecated
-    public String getRequestURI() {
-        return null;
-    }
+
 
     /**
      * Reconstructs the URL the client used to make the request.
@@ -838,35 +881,7 @@ public class HttpRequest implements HttpServletRequest {
 
     }
 
-    /**
-     * Returns the length, in bytes, of the request body and made available by
-     * the input stream, or -1 if the length is not known ir is greater than
-     * Integer.MAX_VALUE. For HTTP servlets,
-     * same as the value of the CGI variable CONTENT_LENGTH.
-     *
-     * @return an integer containing the length of the request body or -1 if
-     * the length is not known or is greater than Integer.MAX_VALUE.
-     */
-    @Override
-    @Deprecated
-    public int getContentLength() {
-        return 0;
-    }
 
-    /**
-     * Returns the length, in bytes, of the request body and made available by
-     * the input stream, or -1 if the length is not known. For HTTP servlets,
-     * same as the value of the CGI variable CONTENT_LENGTH.
-     *
-     * @return a long containing the length of the request body or -1L if
-     * the length is not known
-     * @since Servlet 3.1
-     */
-    @Override
-    @Deprecated
-    public long getContentLengthLong() {
-        return 0;
-    }
 
     /**
      * Returns the MIME type of the body of the request, or
@@ -1510,4 +1525,6 @@ public class HttpRequest implements HttpServletRequest {
     public DispatcherType getDispatcherType() {
         return null;
     }
+
+
 }

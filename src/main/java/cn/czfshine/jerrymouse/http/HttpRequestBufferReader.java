@@ -1,16 +1,13 @@
 package cn.czfshine.jerrymouse.http;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
-
-import static java.nio.charset.Charset.forName;
 
 /**
  * 从缓冲区读并解析http请求
  */
+@Deprecated
 public class HttpRequestBufferReader {
 
     /**
@@ -57,7 +54,7 @@ public class HttpRequestBufferReader {
 
                         String s = new String(bytes, "UTF-8");
                         try {
-                            HttpLineParser.parser(httpServletRequest,s);
+                            httpLineParser.parser(httpRequest,s);
                         } catch (Exception e) {
                             e.printStackTrace();
                             //todo
@@ -111,19 +108,21 @@ public class HttpRequestBufferReader {
 
     /*状态*/
 
-    private HttpServletRequest httpServletRequest; //读入的请求对象
+    private HttpRequest httpRequest; //读入的请求对象
     private int contentLength = 0; //预期的请求体长度
     private int readedContentLength= 0;//已读入的请求体长度
     private boolean isReadContenting=false;
 
 
-    public HttpRequestBufferReader() {
+    private HttpLineParser httpLineParser;
+    public HttpRequestBufferReader(HttpLineParser httpLineParser) {
+        this.httpLineParser = httpLineParser;
         init();
     }
 
     private void init(){
         //todo
-        httpServletRequest=new HttpRequest();
+        httpRequest=new HttpRequest();
         contentLength=0;
         readedContentLength=0;
     }

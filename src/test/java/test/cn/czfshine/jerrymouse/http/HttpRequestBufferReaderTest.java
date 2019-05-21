@@ -1,6 +1,7 @@
 package test.cn.czfshine.jerrymouse.http;
 
 import cn.czfshine.jerrymouse.http.HttpRequestBufferReader;
+import cn.czfshine.jerrymouse.http.http11.Http11LineParser;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -33,7 +34,8 @@ public class HttpRequestBufferReaderTest {
     public void testReadBuffer() throws Exception {
         byte[] simple = HttpRequestMockData.getSimpleNoBodyLineGet();
         ByteBuffer bb = ByteBuffer.allocate(128);
-        HttpRequestBufferReader httpRequestBufferReader = new HttpRequestBufferReader();
+        Http11LineParser httpLineParser = new Http11LineParser();
+        HttpRequestBufferReader httpRequestBufferReader = new HttpRequestBufferReader(httpLineParser);
 
 
         // 1 two line
