@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * 从缓冲区读并解析http请求
  */
-@Deprecated
+
 public class HttpRequestBufferReader {
 
     /**
