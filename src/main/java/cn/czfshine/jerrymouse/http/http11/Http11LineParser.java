@@ -65,7 +65,7 @@ public class Http11LineParser implements HttpLineParser {
         }else if(line.startsWith("Content-Length")){
             parserContantLength(hsr, line);
         }else{
-            throw new RequestHeaderNotSupportedException();
+            //throw new RequestHeaderNotSupportedException();
         }
     }
 

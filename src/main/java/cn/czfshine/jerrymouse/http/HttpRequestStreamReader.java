@@ -2,12 +2,14 @@ package cn.czfshine.jerrymouse.http;
 
 
 import cn.czfshine.jerrymouse.http.http11.HttpLineParserFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 
 /**
  * 使用InputStream解析http请求，显然是阻塞式的
  */
+@Slf4j
 public class HttpRequestStreamReader {
 
 
@@ -63,7 +65,12 @@ public class HttpRequestStreamReader {
      */
     private void checkRequestLine() throws IOException, HTTPVersionNotSupportedException, MethodNotAllowedException {
         String head = bufferedReader.readLine();
-        
+        if(head ==null){
+            // 非http或者没发送数据的
+            //todo 使用postman测试会一次Get发送两个连接，一个没用的..
+            throw new IOException();
+        }
+        log.info(head);
         //@doc http1.1/p28
         //Request-Line = Method SP Request-URI SP HTTP-Version
         String[] ss = head.split(" ");
