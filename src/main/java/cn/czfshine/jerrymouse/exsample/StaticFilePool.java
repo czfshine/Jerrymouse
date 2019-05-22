@@ -9,6 +9,9 @@ public class StaticFilePool {
             url = "/index.html";
         }
         URL resource = StaticFilePool.class.getResource(url);
+        if(resource == null){
+            return null;
+        }
         String file = resource.getFile();
         return  new File(file);
     }

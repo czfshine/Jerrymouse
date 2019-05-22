@@ -39,7 +39,7 @@ public class Connection implements Runnable {
             HttpResponse response = createByRequest(request, socket.getOutputStream());
             servlet.service(request, response);
             response.getOutputStream().flush();
-            System.out.println(request.getMethod());
+
             //todo 得等发送完才能结束
             socket.close();
 

@@ -19,7 +19,7 @@ public class StaticServlet implements Servlet  {
         String url =req.getRequestURI();
         //从url获取对应的本地文件对象
         File file = StaticFilePool.fromUrlGetFile(url);
-        if(!file.exists()){
+        if(file==null || !file.exists()){
             resp.setStatus(404); // 404 not found
             return ;
         }
