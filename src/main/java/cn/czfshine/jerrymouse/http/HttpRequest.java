@@ -17,8 +17,15 @@ import java.util.Map;
  */
 
 public class HttpRequest implements HttpServletRequest {
-
-
+    @Override
+    public String toString() {
+        return "HttpRequest{" +
+                "method='" + method + '\'' +
+                ", uri='" + uri + '\'' +
+                ", contentLength=" + contentLength +
+                ", protocol='" + protocol + '\'' +
+                '}';
+    }
 
     private String method;
     public void setMethod(String method) {
@@ -103,6 +110,23 @@ public class HttpRequest implements HttpServletRequest {
     @Override
     public long getContentLengthLong() {
         return contentLength;
+    }
+
+    private String protocol;
+
+    /**
+     * Returns the name and version of the protocol the request uses
+     * in the form <i>protocol/majorVersion.minorVersion</i>, for
+     * example, HTTP/1.1. For HTTP servlets, the value
+     * returned is the same as the value of the CGI variable
+     * <code>SERVER_PROTOCOL</code>.
+     *
+     * @return a <code>String</code> containing the protocol
+     * name and version number
+     */
+    @Override
+    public String getProtocol() {
+        return protocol;
     }
 
     /* ****** 下面是废弃和未完成的api*/
@@ -999,21 +1023,7 @@ public class HttpRequest implements HttpServletRequest {
         return null;
     }
 
-    /**
-     * Returns the name and version of the protocol the request uses
-     * in the form <i>protocol/majorVersion.minorVersion</i>, for
-     * example, HTTP/1.1. For HTTP servlets, the value
-     * returned is the same as the value of the CGI variable
-     * <code>SERVER_PROTOCOL</code>.
-     *
-     * @return a <code>String</code> containing the protocol
-     * name and version number
-     */
-    @Override
-    @Deprecated
-    public String getProtocol() {
-        return null;
-    }
+
 
     /**
      * Returns the name of the scheme used to make this request,
@@ -1527,4 +1537,7 @@ public class HttpRequest implements HttpServletRequest {
     }
 
 
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
 }

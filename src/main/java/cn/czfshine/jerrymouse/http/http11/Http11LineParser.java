@@ -2,13 +2,10 @@ package cn.czfshine.jerrymouse.http.http11;
 
 import cn.czfshine.jerrymouse.http.HttpLineParser;
 import cn.czfshine.jerrymouse.http.HttpRequest;
-import cn.czfshine.jerrymouse.http.RequestHeaderNotSupportedException;
 import org.jetbrains.annotations.NotNull;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
- * 请求头解析器
+ * HTTP 1.1 版本的请求头解析器
  */
 public class Http11LineParser implements HttpLineParser {
 
@@ -74,11 +71,12 @@ public class Http11LineParser implements HttpLineParser {
      * @param line
      */
     private void parserHost(@NotNull HttpRequest hsr, @NotNull String line){
-        String hostname = line.substring(5);//“Host:”  五个字节
+        String hostname = line.substring(5+1);//“Host:”  五个字节
         //todo 没搞明白HOST应该对应request的哪个属性或方法，hhhhh
     }
     private void parserContantLength( @NotNull HttpRequest hsr, @NotNull String line){
-        String lengthstr=line.substring("Content-Length".length());
+        String lengthstr=line.substring("Content-Length".length()+1);
+        lengthstr=lengthstr.trim();
         long len =Long.valueOf(lengthstr);
         hsr.setContentLength(len);
     }

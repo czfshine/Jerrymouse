@@ -68,9 +68,8 @@ public class HttpRequestStreamReader {
         if(head ==null){
             // 非http或者没发送数据的
             //todo 使用postman测试会一次Get发送两个连接，一个没用的..
-            throw new IOException();
+            throw new IOException(); //直接抛个IO错误，调用者掐断连接
         }
-        log.info(head);
         //@doc http1.1/p28
         //Request-Line = Method SP Request-URI SP HTTP-Version
         String[] ss = head.split(" ");
